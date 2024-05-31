@@ -17,7 +17,7 @@ const ProductCards = ({ products, searchQuery }: ProductCardsProps) => {
 
   return (
     <div>
-      <div className="flex flex-wrap items-center justify-center gap-10">
+      <div className="flex  flex-wrap items-center justify-center gap-10 mt-10 pb-10">
         {filteredProducts.map((product) => (
           <ProductCard
             product={product}

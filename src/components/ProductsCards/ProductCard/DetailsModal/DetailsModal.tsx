@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
+import { IoCloseCircle } from "react-icons/io5";
 
 interface DetailsModalProps {
   isOpen: boolean;
@@ -10,39 +11,40 @@ interface DetailsModalProps {
 const DetailsModal = ({ isOpen, setIsOpen, product }: DetailsModalProps) => {
   if (!isOpen) return null;
 
-  const { category, description, id, image, price, rating, title } = product;
+  const { category, description,  image, price, title,rating } = product;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
-      <div className="bg-white rounded-lg overflow-hidden shadow-lg max-w-lg mx-auto transform transition-transform duration-300 scale-100">
-        <div className="flex justify-between items-center p-4 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-800">{title}</h2>
+    <div className="fixed inset-0  z-50 pt-10 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
+      <div className="rounded-lg  bg-gray-800 overflow-hidden shadow-lg max-w-lg mx-auto transform transition-transform duration-300 scale-100 md:w-96">
+        <div className="flex justify-between items-center p-4 pt-7 border-b border-gray-600">
+          <h2 className="text-xl font-semibold text-white overflow-wrap break-word">{title}</h2>
           <button
             onClick={() => setIsOpen(false)}
-            className="text-gray-500 hover:text-gray-700 transition-colors duration-200"
+            className="text-gray-400 hover:text-white transition-colors duration-200"
           >
-            &times;
+            <IoCloseCircle className="text-2xl font-bold" />
           </button>
         </div>
         <div className="p-4">
-          <Image
-            src={image}
-            alt={title}
-            width={400}
-            height={400}
-            className="w-full h-64 object-contain object-center mb-4 rounded"
-          />
-          <p className="text-gray-600 mb-2">{description}</p>
-          <p className="text-lg font-bold mb-2 text-gray-800">${price}</p>
-          <p className="text-sm text-gray-500">Category: {category}</p>
-          <div className="mt-4 flex justify-end">
-            <button
-              onClick={() => setIsOpen(false)}
-              className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 transition-colors duration-200"
-            >
-              Close
-            </button>
+          <div className="relative h-64 w-full mb-4 rounded overflow-hidden">
+            <Image
+              width={300}
+              height={500}
+              src={image}
+              alt={title}
+              className="object-contain object-center w-full h-full"
+            />
           </div>
+          <div className="overflow-y-auto max-h-80">
+            <p className="text-gray-300 mb-2 text-justify p-2">{description}</p>
+          </div>
+          <div className="flex justify-between items-center w-full mb-2 mt-4">
+          <div className="text-xl font-semibold">${price.toFixed(2)}</div>
+          <div className="bg-yellow-600 text-white text-sm font-medium px-2 py-1 rounded-full">
+            {rating.rate} ★ ({rating.count})
+          </div>
+        </div>
+          <p className="text-sm text-gray-400 capitalize">Category: {category}</p>
         </div>
       </div>
     </div>
